@@ -8,10 +8,76 @@
   box-sizing: border-box;
 }
 
+:root {
+  --benji-bg: #F9F1E6;
+  --benji-text: #2C3E34;
+  --benji-card: #FFFBF5;
+  --benji-accent: #7D9B6B;
+  --benji-line-color: rgba(125, 155, 107, 0.08);
+}
+
+.dark {
+  --benji-bg: #0D1410;
+  --benji-text: #F4EFE6;
+  --benji-card: #1E2A24;
+  --benji-accent: #C9A227;
+  --benji-line-color: rgba(201, 162, 39, 0.07);
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--benji-bg);
+  color: var(--benji-text);
+}
+
+::selection {
+  background-color: rgba(163, 193, 145, 0.3);
+}
+
+.dark ::selection {
+  background-color: rgba(201, 162, 39, 0.3);
+}
+
+@layer components {
+  .benji-auth-bg {
+    background-color: #F5F0E1;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(163, 193, 145, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(125, 155, 107, 0.06) 0%, transparent 40%);
+  }
+  .dark .benji-auth-bg {
+    background-color: #0D1410;
+    background-image:
+      radial-gradient(ellipse at 30% 70%, rgba(201, 162, 39, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 30%, rgba(94, 234, 212, 0.04) 0%, transparent 50%),
+      linear-gradient(160deg, #0D1410 0%, #121A16 100%);
+  }
+
+  .benji-money-lines {
+    position: relative;
+    overflow: hidden;
+  }
+  .benji-money-lines::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    pointer-events: none;
+    z-index: 0;
+    background: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 8px,
+      var(--benji-line-color) 8px,
+      var(--benji-line-color) 9px
+    );
+    filter: blur(1.5px);
+    opacity: 0.7;
+    border-radius: inherit;
+  }
+  .benji-money-lines > * {
+    position: relative;
+    z-index: 1;
+  }
 }

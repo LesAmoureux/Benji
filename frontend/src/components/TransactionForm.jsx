@@ -10,7 +10,8 @@ export default function TransactionForm({ onSuccess }) {
     category: 'Food',
     amount: '',
     description: '',
-    date: new Date().toISOString().split('T')[0]
+    date: new Date().toISOString().split('T')[0],
+    accountType: 'checking'
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -28,7 +29,8 @@ export default function TransactionForm({ onSuccess }) {
         category: 'Food',
         amount: '',
         description: '',
-        date: new Date().toISOString().split('T')[0]
+        date: new Date().toISOString().split('T')[0],
+        accountType: 'checking'
       });
       if (onSuccess) onSuccess();
     } catch (err) {
@@ -36,99 +38,84 @@ export default function TransactionForm({ onSuccess }) {
     }
   };
 
+  const inputClasses = "w-full px-3 py-2 border border-benji-sage/30 dark:border-benji-gold/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-benji-cream/50 dark:bg-benji-vault/50 text-benji-forest dark:text-benji-mist transition-colors";
+
   return (
-    <div className="bg-white p-6 rounded-lg shadow">
-      <h2 className="text-2xl font-bold mb-4">Add Transaction</h2>
+    <div className="bg-benji-paper dark:bg-benji-vault-card p-4 rounded-xl shadow-warm dark:shadow-vault border border-benji-sage/10 dark:border-benji-gold/10 transition-colors">
+      <h2 className="text-2xl font-bold text-benji-forest dark:text-benji-mist mb-4">Add Transaction</h2>
       
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        <div className="bg-benji-brick/10 dark:bg-benji-coral/10 border border-benji-brick/30 dark:border-benji-coral/30 text-benji-brick dark:text-benji-coral px-4 py-3 rounded-lg mb-4">
           {error}
         </div>
       )}
 
       {success && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+        <div className="bg-benji-sage/10 dark:bg-benji-jade/10 border border-benji-sage/30 dark:border-benji-jade/30 text-benji-moss dark:text-benji-jade px-4 py-3 rounded-lg mb-4">
           {success}
         </div>
       )}
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Type</label>
+          <label className="block text-benji-forest dark:text-benji-mist text-sm font-bold mb-2">Type</label>
           <div className="flex gap-4">
-            <label className="flex items-center">
-              <input
-                type="radio"
-                value="income"
-                checked={formData.type === 'income'}
-                onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                className="mr-2"
-              />
+            <label className="flex items-center text-benji-forest dark:text-benji-mist-dim">
+              <input type="radio" value="income" checked={formData.type === 'income'}
+                onChange={(e) => setFormData({ ...formData, type: e.target.value })} className="mr-2 accent-benji-sage-dark dark:accent-benji-gold" />
               Income
             </label>
-            <label className="flex items-center">
-              <input
-                type="radio"
-                value="expense"
-                checked={formData.type === 'expense'}
-                onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                className="mr-2"
-              />
+            <label className="flex items-center text-benji-forest dark:text-benji-mist-dim">
+              <input type="radio" value="expense" checked={formData.type === 'expense'}
+                onChange={(e) => setFormData({ ...formData, type: e.target.value })} className="mr-2 accent-benji-sage-dark dark:accent-benji-gold" />
               Expense
             </label>
           </div>
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Category</label>
-          <select
-            value={formData.category}
-            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            {CATEGORIES.map(cat => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
+          <label className="block text-benji-forest dark:text-benji-mist text-sm font-bold mb-2">Account</label>
+          <div className="flex gap-4">
+            <label className="flex items-center text-benji-forest dark:text-benji-mist-dim">
+              <input type="radio" value="checking" checked={formData.accountType === 'checking'}
+                onChange={(e) => setFormData({ ...formData, accountType: e.target.value })} className="mr-2 accent-benji-sage-dark dark:accent-benji-gold" />
+              Checking
+            </label>
+            <label className="flex items-center text-benji-forest dark:text-benji-mist-dim">
+              <input type="radio" value="savings" checked={formData.accountType === 'savings'}
+                onChange={(e) => setFormData({ ...formData, accountType: e.target.value })} className="mr-2 accent-benji-sage-dark dark:accent-benji-gold" />
+              Savings
+            </label>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-benji-forest dark:text-benji-mist text-sm font-bold mb-2">Category</label>
+          <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className={inputClasses}>
+            {CATEGORIES.map(cat => (<option key={cat} value={cat}>{cat}</option>))}
           </select>
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Amount</label>
-          <input
-            type="number"
-            step="0.01"
-            value={formData.amount}
-            onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
+          <label className="block text-benji-forest dark:text-benji-mist text-sm font-bold mb-2">Amount</label>
+          <input type="number" step="0.01" value={formData.amount}
+            onChange={(e) => setFormData({ ...formData, amount: e.target.value })} className={inputClasses} required />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Description</label>
-          <input
-            type="text"
-            value={formData.description}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+          <label className="block text-benji-forest dark:text-benji-mist text-sm font-bold mb-2">Description</label>
+          <input type="text" value={formData.description}
+            onChange={(e) => setFormData({ ...formData, description: e.target.value })} className={inputClasses} />
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Date</label>
-          <input
-            type="date"
-            value={formData.date}
-            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
+          <label className="block text-benji-forest dark:text-benji-mist text-sm font-bold mb-2">Date</label>
+          <input type="date" value={formData.date}
+            onChange={(e) => setFormData({ ...formData, date: e.target.value })} className={inputClasses} required />
         </div>
 
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200 font-semibold"
-        >
+        <button type="submit"
+          className="w-full bg-benji-sage-dark hover:bg-benji-sage dark:bg-benji-gold dark:hover:bg-benji-gold-light text-white dark:text-benji-vault py-2 px-4 rounded-lg transition font-semibold">
           Add Transaction
         </button>
       </form>

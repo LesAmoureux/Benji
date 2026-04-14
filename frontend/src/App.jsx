@@ -7,13 +7,14 @@ import Register from './pages/Register';
 import BeautifulDashboard from './components/BeautifulDashboard';
 import TransactionsPage from './pages/TransactionsPage';
 import AllTransactionsPage from './pages/AllTransactionsPage';
+import BudgetsPage from './pages/BudgetsPage';
 import Navbar from './components/Navbar';
 
 function PrivateRoute({ children }) {
   const { user, loading } = useContext(AuthContext);
   
   if (loading) {
-    return <div className="flex items-center justify-center min-h-screen dark:bg-gray-900">Loading...</div>;
+    return <div className="flex items-center justify-center min-h-screen bg-benji-cream dark:bg-benji-vault text-benji-forest dark:text-benji-mist">Loading...</div>;
   }
   
   return user ? children : <Navigate to="/login" />;
@@ -54,6 +55,16 @@ function AppRoutes() {
                 <PrivateRoute>
                   <Navbar />
                   <AllTransactionsPage />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/budgets"
+              element={
+                <PrivateRoute>
+                  <Navbar />
+                  <BudgetsPage />
                 </PrivateRoute>
               }
             />

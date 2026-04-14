@@ -120,12 +120,19 @@ exports.importCSV = async (req, res) => {
       });
     }
 
-    const { transactions } = req.body;
+    const { transactions, accountType } = req.body;
 
     if (!transactions || !Array.isArray(transactions)) {
       return res.status(400).json({
         success: false,
         message: 'Invalid transactions data'
+      });
+    }
+
+    if (!accountType || !['checking', 'savings'].includes(accountType)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Please specify accountType as "checking" or "savings"'
       });
     }
 
@@ -153,16 +160,17 @@ exports.importCSV = async (req, res) => {
           user: req.user._id,
           type: trans.type,
           category: trans.category,
-          amount: parseFloat(trans.amount),
+          amount: Math.abs(parseFloat(trans.amount)),
           description: trans.description || '',
           merchantName: trans.merchantName || '',
           originalDescription: trans.originalDescription || '',
           date: new Date(trans.date),
+          accountType,
           importedFrom: 'csv',
           csvData: {
             checkNumber: trans.csvData?.checkNumber || '',
             transactionType: trans.csvData?.transactionType || '',
-            balance: trans.csvData?.balance || null
+            balance: trans.csvData?.balance != null ? trans.csvData.balance : null
           }
         });
 

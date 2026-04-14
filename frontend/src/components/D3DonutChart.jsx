@@ -142,7 +142,7 @@ export default function D3DonutChart({ data, width = 500, height = 500 }) {
     <div className="flex flex-col items-center">
       <svg ref={svgRef}></svg>
       {selectedCategory && (
-        <p className="text-sm text-gray-600 dark:text-gray-300 mt-2">
+        <p className="text-sm text-benji-ink dark:text-benji-mist-dim mt-2">
           Hovering: <span className="font-semibold">{selectedCategory}</span>
         </p>
       )}

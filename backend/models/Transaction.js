@@ -43,6 +43,11 @@ const TransactionSchema = new mongoose.Schema({
     url: String,
     publicId: String
   },
+  accountType: {
+    type: String,
+    enum: ['checking', 'savings'],
+    default: null
+  },
   importedFrom: {
     type: String,
     enum: ['manual', 'csv', 'bank_api'],
@@ -67,5 +72,6 @@ const TransactionSchema = new mongoose.Schema({
 TransactionSchema.index({ user: 1, date: -1 });
 TransactionSchema.index({ user: 1, type: 1, category: 1 });
 TransactionSchema.index({ user: 1, merchantName: 1 });
+TransactionSchema.index({ user: 1, accountType: 1, date: -1 });
 
 module.exports = mongoose.model('Transaction', TransactionSchema);

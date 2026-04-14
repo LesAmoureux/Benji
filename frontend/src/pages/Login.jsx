@@ -25,66 +25,65 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-6 transition-colors">
-      {/* Dark Mode Toggle - Top Right */}
+    <div className="benji-auth-bg min-h-screen flex items-center justify-center px-4 py-4 transition-colors">
       <button
         onClick={toggleTheme}
-        className="fixed top-6 right-6 p-3 rounded-lg bg-white dark:bg-gray-700 shadow-lg hover:scale-110 transition-transform z-50"
+        className="fixed top-6 right-6 p-3 rounded-lg bg-benji-paper dark:bg-benji-vault-card shadow-warm dark:shadow-vault hover:scale-110 transition-transform z-50"
         title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       >
-        {isDark ? <Sun size={24} className="text-yellow-400" /> : <Moon size={24} className="text-gray-700" />}
+        {isDark ? <Sun size={24} className="text-benji-gold" /> : <Moon size={24} className="text-benji-forest" />}
       </button>
 
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-2xl w-full max-w-md transition-colors">
+      <div className="benji-money-lines bg-benji-paper dark:bg-benji-vault-card p-6 rounded-xl shadow-warm-md dark:shadow-vault-md w-full max-w-md border border-benji-sage/10 dark:border-benji-gold/10 transition-colors">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2">BENJI</h1>
-          <p className="text-gray-600 dark:text-gray-300">Money Management Made Simple</p>
+          <h1 className="text-4xl font-display font-bold text-benji-forest dark:text-benji-gold mb-2">BENJI</h1>
+          <p className="text-benji-ink dark:text-benji-mist-dim">Money Management Made Simple</p>
         </div>
 
         {error && (
-          <div className="bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-600 text-red-700 dark:text-red-200 px-4 py-3 rounded mb-4">
+          <div className="bg-benji-brick/10 dark:bg-benji-coral/10 border border-benji-brick/30 dark:border-benji-coral/30 text-benji-brick dark:text-benji-coral px-4 py-3 rounded-lg mb-4">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 dark:text-gray-200 text-sm font-semibold mb-2">
+            <label className="block text-benji-forest dark:text-benji-mist text-sm font-semibold mb-2">
               Email
             </label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors"
+              className="w-full px-4 py-3 border border-benji-sage/30 dark:border-benji-gold/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-benji-cream/50 dark:bg-benji-vault/50 text-benji-forest dark:text-benji-mist transition-colors"
               required
             />
           </div>
 
           <div className="mb-6">
-            <label className="block text-gray-700 dark:text-gray-200 text-sm font-semibold mb-2">
+            <label className="block text-benji-forest dark:text-benji-mist text-sm font-semibold mb-2">
               Password
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-colors"
+              className="w-full px-4 py-3 border border-benji-sage/30 dark:border-benji-gold/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-benji-cream/50 dark:bg-benji-vault/50 text-benji-forest dark:text-benji-mist transition-colors"
               required
             />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-colors"
+            className="w-full bg-benji-sage-dark hover:bg-benji-sage dark:bg-benji-gold dark:hover:bg-benji-gold-light text-white dark:text-benji-vault font-semibold py-3 rounded-lg transition-colors"
           >
             Login
           </button>
         </form>
 
-        <p className="text-center text-gray-600 dark:text-gray-300 mt-6">
+        <p className="text-center text-benji-ink dark:text-benji-mist-dim mt-6">
           Don't have an account?{' '}
-          <Link to="/register" className="text-blue-500 dark:text-blue-400 hover:underline font-semibold">
+          <Link to="/register" className="text-benji-sage-dark dark:text-benji-gold hover:underline font-semibold">
             Register
           </Link>
         </p>

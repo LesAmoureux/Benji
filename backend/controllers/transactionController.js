@@ -33,12 +33,13 @@ exports.createTransaction = async (req, res) => {
 
 exports.getTransactions = async (req, res) => {
   try {
-    const { type, category, startDate, endDate } = req.query;
+    const { type, category, startDate, endDate, accountType } = req.query;
     
     let query = { user: req.user.id };
     
     if (type) query.type = type;
     if (category) query.category = category;
+    if (accountType) query.accountType = accountType;
     if (startDate || endDate) {
       query.date = {};
       if (startDate) query.date.$gte = new Date(startDate);
