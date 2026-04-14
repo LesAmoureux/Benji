@@ -130,10 +130,10 @@ function parse(row, columnMap) {
       const creditStr = getValue(row, columnMap.credit);
 
       if (debitStr) {
-        amount = parseAmount(debitStr);
+        amount = Math.abs(parseAmount(debitStr));
         type = 'expense';
       } else if (creditStr) {
-        amount = parseAmount(creditStr);
+        amount = Math.abs(parseAmount(creditStr));
         type = 'income';
       }
     }
