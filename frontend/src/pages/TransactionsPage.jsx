@@ -94,12 +94,12 @@ export default function TransactionsPage() {
 
   return (
     <div className="min-h-screen bg-benji-cream dark:bg-benji-vault transition-colors">
-      <div className="w-full px-4 py-4">
+      <div className="w-full px-3 sm:px-4 py-4">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
           {/* Left Column - Add Transaction */}
           <div className="lg:col-span-1">
-            <div className="bg-benji-paper dark:bg-benji-vault-card p-4 rounded-xl shadow-warm dark:shadow-vault border border-benji-sage/10 dark:border-benji-gold/10 transition-colors">
-              <h2 className="text-2xl font-bold text-benji-forest dark:text-benji-mist mb-4">Add Transaction</h2>
+            <div className="bg-benji-paper dark:bg-benji-vault-card p-3 sm:p-4 rounded-xl shadow-warm dark:shadow-vault border border-benji-sage/10 dark:border-benji-gold/10 transition-colors">
+              <h2 className="text-xl sm:text-2xl font-bold text-benji-forest dark:text-benji-mist mb-3 sm:mb-4">Add Transaction</h2>
               
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
@@ -173,19 +173,19 @@ export default function TransactionsPage() {
           {/* Right Column - Dashboard */}
           <div className="lg:col-span-2 space-y-3">
             <div>
-              <h2 className="text-2xl font-bold text-benji-forest dark:text-benji-mist mb-4">Dashboard</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div className="benji-money-lines bg-gradient-to-br from-benji-sage to-benji-sage-dark dark:from-benji-jade-dim dark:to-benji-jade-dim/70 p-4 rounded-xl shadow-warm dark:shadow-vault text-white">
-                  <h3 className="text-sm font-semibold opacity-90 mb-1">Total Income</h3>
-                  <p className="text-3xl font-bold">${stats.totalIncome.toFixed(2)}</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-benji-forest dark:text-benji-mist mb-3 sm:mb-4">Dashboard</h2>
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                <div className="benji-money-lines bg-gradient-to-br from-benji-sage to-benji-sage-dark dark:from-benji-jade-dim dark:to-benji-jade-dim/70 p-3 sm:p-4 rounded-xl shadow-warm dark:shadow-vault text-white">
+                  <h3 className="text-[10px] sm:text-sm font-semibold opacity-90 mb-1">Total Income</h3>
+                  <p className="text-lg sm:text-2xl md:text-3xl font-bold">${stats.totalIncome.toFixed(2)}</p>
                 </div>
-                <div className="benji-money-lines bg-gradient-to-br from-benji-brick to-benji-brick/80 dark:from-benji-coral dark:to-benji-coral/70 p-4 rounded-xl shadow-warm dark:shadow-vault text-white">
-                  <h3 className="text-sm font-semibold opacity-90 mb-1">Total Expenses</h3>
-                  <p className="text-3xl font-bold">${stats.totalExpenses.toFixed(2)}</p>
+                <div className="benji-money-lines bg-gradient-to-br from-benji-brick to-benji-brick/80 dark:from-benji-coral dark:to-benji-coral/70 p-3 sm:p-4 rounded-xl shadow-warm dark:shadow-vault text-white">
+                  <h3 className="text-[10px] sm:text-sm font-semibold opacity-90 mb-1">Total Expenses</h3>
+                  <p className="text-lg sm:text-2xl md:text-3xl font-bold">${stats.totalExpenses.toFixed(2)}</p>
                 </div>
-                <div className="benji-money-lines bg-gradient-to-br from-benji-forest to-benji-forest-light dark:from-benji-gold/90 dark:to-benji-gold/60 p-4 rounded-xl shadow-warm dark:shadow-vault text-white dark:text-benji-vault">
-                  <h3 className="text-sm font-semibold opacity-90 mb-1">Balance</h3>
-                  <p className="text-3xl font-bold">${stats.balance.toFixed(2)}</p>
+                <div className="benji-money-lines bg-gradient-to-br from-benji-forest to-benji-forest-light dark:from-benji-gold/90 dark:to-benji-gold/60 p-3 sm:p-4 rounded-xl shadow-warm dark:shadow-vault text-white dark:text-benji-vault">
+                  <h3 className="text-[10px] sm:text-sm font-semibold opacity-90 mb-1">Balance</h3>
+                  <p className="text-lg sm:text-2xl md:text-3xl font-bold">${stats.balance.toFixed(2)}</p>
                 </div>
               </div>
             </div>

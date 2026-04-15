@@ -51,10 +51,10 @@ export default function DashboardSettings({ preferences, onSave }) {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 bg-benji-sage-dark dark:bg-benji-gold text-white dark:text-benji-vault p-4 rounded-full shadow-warm-md dark:shadow-vault-md hover:bg-benji-sage dark:hover:bg-benji-gold-light transition z-40 hover:scale-110 transform"
+        className="fixed bottom-20 md:bottom-6 right-4 sm:right-6 bg-benji-sage-dark dark:bg-benji-gold text-white dark:text-benji-vault p-3.5 sm:p-4 rounded-full shadow-warm-md dark:shadow-vault-md hover:bg-benji-sage dark:hover:bg-benji-gold-light transition z-40 hover:scale-110 transform"
         title="Dashboard Settings"
       >
-        <Settings size={24} />
+        <Settings size={22} />
       </button>
 
       <AnimatePresence>
@@ -73,9 +73,9 @@ export default function DashboardSettings({ preferences, onSave }) {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed right-0 top-0 h-full w-full max-w-lg bg-benji-paper dark:bg-benji-vault-card shadow-warm-md dark:shadow-vault-md z-50 overflow-y-auto transition-colors"
+              className="fixed right-0 top-0 h-full w-full sm:max-w-lg bg-benji-paper dark:bg-benji-vault-card shadow-warm-md dark:shadow-vault-md z-50 overflow-y-auto transition-colors"
             >
-              <div className="p-6">
+              <div className="p-4 sm:p-6 pb-24 md:pb-6">
                 <div className="flex justify-between items-center mb-4">
                   <div>
                     <h2 className="text-2xl font-bold text-benji-forest dark:text-benji-mist">Dashboard Settings</h2>
@@ -111,7 +111,7 @@ export default function DashboardSettings({ preferences, onSave }) {
                               key={widget.id}
                               whileHover={{ scale: 1.01 }}
                               whileTap={{ scale: 0.99 }}
-                              className={`p-3 rounded-lg border-2 transition cursor-pointer ${
+                              className={`p-3 sm:p-3 rounded-lg border-2 transition cursor-pointer min-h-[44px] ${
                                 enabled
                                   ? 'border-benji-sage dark:border-benji-gold bg-benji-sage/10 dark:bg-benji-gold/10'
                                   : 'border-benji-sage/15 dark:border-benji-gold/10 bg-benji-cream/50 dark:bg-benji-vault-up'

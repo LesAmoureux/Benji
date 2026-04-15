@@ -26,19 +26,19 @@ export default function Register() {
   };
 
   return (
-    <div className="benji-auth-bg min-h-screen flex items-center justify-center px-4 py-4 transition-colors">
+    <div className="benji-auth-bg min-h-screen flex items-end sm:items-center justify-center px-0 sm:px-4 py-0 sm:py-4 transition-colors">
       <button
         onClick={toggleTheme}
-        className="fixed top-6 right-6 p-3 rounded-lg bg-benji-paper dark:bg-benji-vault-card shadow-warm dark:shadow-vault hover:scale-110 transition-transform z-50"
+        className="fixed top-4 right-4 sm:top-6 sm:right-6 p-2.5 sm:p-3 rounded-lg bg-benji-paper dark:bg-benji-vault-card shadow-warm dark:shadow-vault hover:scale-110 transition-transform z-50"
         title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       >
-        {isDark ? <Sun size={24} className="text-benji-gold" /> : <Moon size={24} className="text-benji-forest" />}
+        {isDark ? <Sun size={22} className="text-benji-gold" /> : <Moon size={22} className="text-benji-forest" />}
       </button>
 
-      <div className="benji-money-lines bg-benji-paper dark:bg-benji-vault-card p-6 rounded-xl shadow-warm-md dark:shadow-vault-md w-full max-w-md border border-benji-sage/10 dark:border-benji-gold/10 transition-colors">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-display font-bold text-benji-forest dark:text-benji-gold mb-2">BENJI</h1>
-          <p className="text-benji-ink dark:text-benji-mist-dim">Create Your Account</p>
+      <div className="benji-money-lines bg-benji-paper dark:bg-benji-vault-card p-5 sm:p-6 rounded-t-2xl sm:rounded-xl shadow-warm-md dark:shadow-vault-md w-full sm:max-w-md border border-benji-sage/10 dark:border-benji-gold/10 transition-colors">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-display font-bold text-benji-forest dark:text-benji-gold mb-2">BENJI</h1>
+          <p className="text-sm sm:text-base text-benji-ink dark:text-benji-mist-dim">Create Your Account</p>
         </div>
 
         {error && (

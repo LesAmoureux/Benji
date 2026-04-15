@@ -1,6 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Calendar } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 import API from '../services/api';
 import DashboardSettings from './DashboardSettings';
 import WIDGET_REGISTRY, { mergeWidgetPreferences } from '../dashboard/widgetRegistry';
@@ -51,10 +52,20 @@ export default function BeautifulDashboard() {
   const [preferences, setPreferences] = useState({ widgets: [] });
   const [budgetSummary, setBudgetSummary] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [timeRange, setTimeRange] = useState('30days');
+  const [timeRange, setTimeRange] = useState('all');
   const [customStartDate, setCustomStartDate] = useState('');
   const [customEndDate, setCustomEndDate] = useState('');
   const [accountScope, setAccountScope] = useState('all');
+  const [bannerDismissed, setBannerDismissed] = useState(
+    () => localStorage.getItem('benji-onboarding-dismissed') === 'true'
+  );
+
+  const dismissBanner = () => {
+    setBannerDismissed(true);
+    localStorage.setItem('benji-onboarding-dismissed', 'true');
+  };
+
+  const showOnboarding = !loading && allTransactions.length === 0 && !bannerDismissed;
 
   useEffect(() => {
     fetchData();
@@ -186,14 +197,41 @@ export default function BeautifulDashboard() {
   const fullWidgets = WIDGET_REGISTRY.filter(w => LAYOUT_MAP[w.id] !== 'kpi' && enabledWidgetIds.has(w.id));
 
   return (
-    <div className="min-h-screen bg-benji-cream dark:bg-benji-vault px-4 py-4 transition-colors">
+    <div className="min-h-screen bg-benji-cream dark:bg-benji-vault px-3 sm:px-4 py-4 transition-colors">
       <div className="w-full">
+        {/* Onboarding Banner */}
+        {showOnboarding && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-4 relative bg-benji-sage/10 dark:bg-benji-gold/10 border border-benji-sage/30 dark:border-benji-gold/30 rounded-xl p-4 sm:p-5"
+          >
+            <button
+              onClick={dismissBanner}
+              className="absolute top-3 right-3 p-1 rounded-full hover:bg-benji-sage/20 dark:hover:bg-benji-gold/20 transition"
+            >
+              <X size={18} className="text-benji-ink dark:text-benji-mist-dim" />
+            </button>
+            <h2 className="text-lg sm:text-xl font-bold text-benji-forest dark:text-benji-gold mb-2">Welcome to BENJI!</h2>
+            <p className="text-sm sm:text-base text-benji-ink dark:text-benji-mist-dim mb-3 pr-6">
+              Please go to <strong>All Transactions</strong> and upload a CSV of your accounts downloaded from your bank
+              and select account type to analyse data as you see fit during your regular life.
+            </p>
+            <Link
+              to="/all-transactions"
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-benji-sage dark:bg-benji-gold text-white dark:text-benji-vault font-semibold rounded-lg hover:opacity-90 transition text-sm"
+            >
+              Go to All Transactions <ArrowRight size={16} />
+            </Link>
+          </motion.div>
+        )}
+
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} className="mb-4">
-          <div className="flex flex-wrap justify-between items-start mb-4 gap-4">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-4 gap-3 sm:gap-4">
             <div>
-              <h1 className="text-4xl font-bold text-benji-forest dark:text-benji-mist mb-2">Your Financial Dashboard</h1>
-              <p className="text-benji-ink dark:text-benji-mist-dim">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-benji-forest dark:text-benji-mist mb-1 sm:mb-2">Your Financial Dashboard</h1>
+              <p className="text-sm sm:text-base text-benji-ink dark:text-benji-mist-dim">
                 Showing data for: <span className="font-semibold">{timeRangeLabel[timeRange]}</span>
                 {' '}({filteredTransactions.length} transactions)
                 {accountScope !== 'all' && (
@@ -204,14 +242,14 @@ export default function BeautifulDashboard() {
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 sm:gap-3">
               {/* Account Scope */}
               <div className="bg-benji-paper dark:bg-benji-vault-card rounded-lg shadow-warm dark:shadow-vault p-2 border border-benji-sage/10 dark:border-benji-gold/10">
                 <label className="text-xs text-benji-ink dark:text-benji-mist-dim block mb-1">Account</label>
                 <select
                   value={accountScope}
                   onChange={(e) => setAccountScope(e.target.value)}
-                  className="px-3 py-2 border-none rounded focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-transparent text-benji-forest dark:text-benji-mist"
+                  className="w-full px-2 sm:px-3 py-2 border-none rounded focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-transparent text-benji-forest dark:text-benji-mist text-sm sm:text-base"
                 >
                   <option value="all">All Accounts</option>
                   <option value="checking">Checking</option>
@@ -226,7 +264,7 @@ export default function BeautifulDashboard() {
                 <select
                   value={timeRange}
                   onChange={(e) => setTimeRange(e.target.value)}
-                  className="px-3 py-2 border-none rounded focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-transparent text-benji-forest dark:text-benji-mist"
+                  className="w-full px-2 sm:px-3 py-2 border-none rounded focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-transparent text-benji-forest dark:text-benji-mist text-sm sm:text-base"
                 >
                   <option value="7days">Last 7 Days</option>
                   <option value="30days">Last 30 Days</option>
@@ -243,12 +281,12 @@ export default function BeautifulDashboard() {
                   <div className="bg-benji-paper dark:bg-benji-vault-card rounded-lg shadow-warm dark:shadow-vault p-2 border border-benji-sage/10 dark:border-benji-gold/10">
                     <label className="text-xs text-benji-ink dark:text-benji-mist-dim block mb-1">Start Date</label>
                     <input type="date" value={customStartDate} onChange={(e) => setCustomStartDate(e.target.value)}
-                      className="px-3 py-2 border-none rounded focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-transparent text-benji-forest dark:text-benji-mist" />
+                      className="w-full px-2 sm:px-3 py-2 border-none rounded focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-transparent text-benji-forest dark:text-benji-mist text-sm" />
                   </div>
                   <div className="bg-benji-paper dark:bg-benji-vault-card rounded-lg shadow-warm dark:shadow-vault p-2 border border-benji-sage/10 dark:border-benji-gold/10">
                     <label className="text-xs text-benji-ink dark:text-benji-mist-dim block mb-1">End Date</label>
                     <input type="date" value={customEndDate} onChange={(e) => setCustomEndDate(e.target.value)}
-                      className="px-3 py-2 border-none rounded focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-transparent text-benji-forest dark:text-benji-mist" />
+                      className="w-full px-2 sm:px-3 py-2 border-none rounded focus:outline-none focus:ring-2 focus:ring-benji-sage dark:focus:ring-benji-gold bg-transparent text-benji-forest dark:text-benji-mist text-sm" />
                   </div>
                 </>
               )}
@@ -258,7 +296,7 @@ export default function BeautifulDashboard() {
 
         {/* KPI Row */}
         {kpiWidgets.length > 0 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 mb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3 mb-4">
             {kpiWidgets.map(w => (
               <div key={w.id} className="min-w-0">{renderWidget(w.id, metrics, budgetSummary, filteredTransactions)}</div>
             ))}
@@ -266,7 +304,7 @@ export default function BeautifulDashboard() {
         )}
 
         {/* Full-width / half-width widgets */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 sm:gap-3 mb-4">
           {fullWidgets.map(w => (
             <div key={w.id} className="min-w-0">{renderWidget(w.id, metrics, budgetSummary, filteredTransactions)}</div>
           ))}

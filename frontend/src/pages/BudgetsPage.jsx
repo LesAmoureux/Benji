@@ -135,23 +135,23 @@ export default function BudgetsPage() {
     <div className="min-h-screen bg-benji-cream dark:bg-benji-vault transition-colors">
       <div className="w-full px-4 py-4">
         {/* Header */}
-        <div className="flex justify-between items-center mb-4">
-          <h1 className="text-3xl font-bold text-benji-forest dark:text-benji-mist">Budget Planner</h1>
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-4">
+          <h1 className="text-2xl sm:text-3xl font-bold text-benji-forest dark:text-benji-mist">Budget Planner</h1>
           <button
             onClick={openCreate}
-            className="bg-benji-sage-dark hover:bg-benji-sage dark:bg-benji-gold dark:hover:bg-benji-gold-light text-white px-4 py-2 rounded-lg transition flex items-center gap-2"
+            className="bg-benji-sage-dark hover:bg-benji-sage dark:bg-benji-gold dark:hover:bg-benji-gold-light text-white px-4 py-2.5 rounded-lg transition flex items-center justify-center gap-2 text-sm sm:text-base self-start sm:self-auto"
           >
-            <Plus size={20} /> Add Budget
+            <Plus size={18} /> Add Budget
           </button>
         </div>
 
         {/* Month Picker + Account Scope */}
-        <div className="bg-benji-paper dark:bg-benji-vault-card rounded-xl shadow-md p-4 mb-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
+        <div className="bg-benji-paper dark:bg-benji-vault-card rounded-xl shadow-md p-3 sm:p-4 mb-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button onClick={handlePrevMonth} className="p-2 hover:bg-benji-sage/10 dark:hover:bg-benji-gold/10 rounded-lg transition">
               <ChevronLeft size={20} className="text-benji-ink dark:text-benji-mist-dim" />
             </button>
-            <span className="text-lg font-semibold text-benji-forest dark:text-benji-mist min-w-[180px] text-center">{monthLabel}</span>
+            <span className="text-base sm:text-lg font-semibold text-benji-forest dark:text-benji-mist min-w-[160px] sm:min-w-[180px] text-center">{monthLabel}</span>
             <button onClick={handleNextMonth} className="p-2 hover:bg-benji-sage/10 dark:hover:bg-benji-gold/10 rounded-lg transition">
               <ChevronRight size={20} className="text-benji-ink dark:text-benji-mist-dim" />
             </button>
@@ -162,7 +162,7 @@ export default function BudgetsPage() {
               <button
                 key={at}
                 onClick={() => setAccountType(at)}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+                className={`px-4 py-2.5 rounded-lg text-sm font-medium transition ${
                   accountType === at
                     ? 'bg-benji-sage-dark dark:bg-benji-gold text-white dark:text-benji-vault'
                     : 'bg-benji-cream dark:bg-benji-vault-up text-benji-forest dark:text-benji-mist-dim hover:bg-benji-sage/20 dark:hover:bg-benji-gold/10'
@@ -175,37 +175,37 @@ export default function BudgetsPage() {
         </div>
 
         {/* Overall Monthly Budget */}
-        <div className="bg-benji-paper dark:bg-benji-vault-card rounded-xl shadow-md p-4 mb-4">
-          <div className="flex justify-between items-start mb-4">
+        <div className="bg-benji-paper dark:bg-benji-vault-card rounded-xl shadow-md p-3 sm:p-4 mb-4">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 mb-4">
             <div>
-              <h2 className="text-xl font-bold text-benji-forest dark:text-benji-mist">Overall Monthly Budget</h2>
-              <p className="text-sm text-benji-ink/70 dark:text-benji-mist-dim/70 mt-1">
+              <h2 className="text-lg sm:text-xl font-bold text-benji-forest dark:text-benji-mist">Overall Monthly Budget</h2>
+              <p className="text-xs sm:text-sm text-benji-ink/70 dark:text-benji-mist-dim/70 mt-1">
                 Set a total spending limit for the entire month across all categories
               </p>
             </div>
             <button
               onClick={openOverallBudget}
-              className="bg-benji-sage-dark hover:bg-benji-sage dark:bg-benji-gold dark:hover:bg-benji-gold-light text-white px-4 py-2 rounded-lg transition text-sm"
+              className="bg-benji-sage-dark hover:bg-benji-sage dark:bg-benji-gold dark:hover:bg-benji-gold-light text-white px-4 py-2.5 rounded-lg transition text-sm self-start"
             >
               {overallBudget ? 'Edit Overall Budget' : 'Set Overall Budget'}
             </button>
           </div>
           {overallBudget ? (
             <div>
-              <div className="grid grid-cols-3 gap-3 mb-3">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3 mb-3">
                 <div>
-                  <p className="text-sm text-benji-ink/70 dark:text-benji-mist-dim/70">Limit</p>
-                  <p className="text-2xl font-bold text-benji-forest dark:text-benji-mist">${overallBudget.limit.toFixed(2)}</p>
+                  <p className="text-xs sm:text-sm text-benji-ink/70 dark:text-benji-mist-dim/70">Limit</p>
+                  <p className="text-lg sm:text-2xl font-bold text-benji-forest dark:text-benji-mist">${overallBudget.limit.toFixed(2)}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-benji-ink/70 dark:text-benji-mist-dim/70">Spent</p>
-                  <p className={`text-2xl font-bold ${overallBudget.overBudget ? 'text-benji-brick dark:text-benji-coral' : 'text-benji-moss dark:text-benji-jade'}`}>
+                  <p className="text-xs sm:text-sm text-benji-ink/70 dark:text-benji-mist-dim/70">Spent</p>
+                  <p className={`text-lg sm:text-2xl font-bold ${overallBudget.overBudget ? 'text-benji-brick dark:text-benji-coral' : 'text-benji-moss dark:text-benji-jade'}`}>
                     ${overallBudget.actual.toFixed(2)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-benji-ink/70 dark:text-benji-mist-dim/70">Remaining</p>
-                  <p className={`text-2xl font-bold ${overallBudget.remaining < 0 ? 'text-benji-brick dark:text-benji-coral' : 'text-benji-moss dark:text-benji-jade'}`}>
+                  <p className="text-xs sm:text-sm text-benji-ink/70 dark:text-benji-mist-dim/70">Remaining</p>
+                  <p className={`text-lg sm:text-2xl font-bold ${overallBudget.remaining < 0 ? 'text-benji-brick dark:text-benji-coral' : 'text-benji-moss dark:text-benji-jade'}`}>
                     {overallBudget.remaining < 0 ? '-' : ''}${Math.abs(overallBudget.remaining).toFixed(2)}
                   </p>
                 </div>
@@ -336,9 +336,9 @@ export default function BudgetsPage() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="fixed inset-0 flex items-center justify-center z-50 p-4"
+                className="fixed inset-0 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4"
               >
-                <div className="bg-benji-paper dark:bg-benji-vault-card rounded-xl shadow-xl p-6 w-full max-w-md" onClick={(e) => e.stopPropagation()}>
+                <div className="bg-benji-paper dark:bg-benji-vault-card rounded-t-2xl sm:rounded-xl shadow-xl p-5 sm:p-6 w-full sm:max-w-md" onClick={(e) => e.stopPropagation()}>
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold text-benji-forest dark:text-benji-mist">
                       {formMode === 'overall'

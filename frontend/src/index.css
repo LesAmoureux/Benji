@@ -40,6 +40,31 @@ body {
   background-color: rgba(201, 162, 39, 0.3);
 }
 
+.dark {
+  color-scheme: dark;
+}
+
+.dark select,
+.dark option {
+  background-color: var(--benji-card);
+  color: var(--benji-text);
+}
+
+select:not([class*="bg-"]) {
+  background-color: var(--benji-card);
+  color: var(--benji-text);
+}
+
+@media (max-width: 640px) {
+  button, select {
+    min-height: 44px;
+  }
+  input[type="text"], input[type="email"], input[type="password"], input[type="number"], input[type="date"] {
+    min-height: 44px;
+    font-size: 16px;
+  }
+}
+
 @layer components {
   .benji-auth-bg {
     background-color: #F5F0E1;
